@@ -7,8 +7,6 @@ import com.jknpp.usuario.infrastructure.entity.Endereco;
 import com.jknpp.usuario.infrastructure.entity.Telefone;
 import com.jknpp.usuario.infrastructure.entity.Usuario;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
