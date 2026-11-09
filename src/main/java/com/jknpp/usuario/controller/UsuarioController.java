@@ -30,12 +30,18 @@ public class UsuarioController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getSenha())
         );
-        return "Bearer" + jwtUtil.generateToken(authentication.getName());
+        return "Bearer " + jwtUtil.generateToken(authentication.getName());
     }
 
     @GetMapping
     public ResponseEntity<UsuarioDto> buscarUsuario(String email){
         return ResponseEntity.ok(usuarioService.buscarUsuario(email));
+    }
+
+    @PutMapping
+    public ResponseEntity<UsuarioDto> atualizaDadosUsuario(@RequestHeader("Authorization") String token,
+                                                           @RequestBody UsuarioDto dto){
+        return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, dto));
     }
 
     @DeleteMapping
