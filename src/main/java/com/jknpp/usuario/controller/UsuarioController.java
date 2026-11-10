@@ -1,5 +1,7 @@
 package com.jknpp.usuario.controller;
 
+import com.jknpp.usuario.business.dto.EnderecoDto;
+import com.jknpp.usuario.business.dto.TelefoneDto;
 import com.jknpp.usuario.business.dto.UsuarioDto;
 import com.jknpp.usuario.business.service.UsuarioService;
 import com.jknpp.usuario.infrastructure.security.JwtUtil;
@@ -42,6 +44,16 @@ public class UsuarioController {
     public ResponseEntity<UsuarioDto> atualizaDadosUsuario(@RequestHeader("Authorization") String token,
                                                            @RequestBody UsuarioDto dto){
         return ResponseEntity.ok(usuarioService.atualizaDadosUsuario(token, dto));
+    }
+
+    @PutMapping("/endereco")
+    public ResponseEntity<EnderecoDto> atualizaEnderecoUsuario(@RequestParam("id") Long id, @RequestBody EnderecoDto dto){
+        return ResponseEntity.ok(usuarioService.atualizarEnderecoUsuario(id, dto));
+    }
+
+    @PutMapping("/telefone")
+    public ResponseEntity<TelefoneDto> atualizaTelefoneUsuario(@RequestParam("id") Long id, @RequestBody TelefoneDto dto){
+        return ResponseEntity.ok(usuarioService.atualizarTelefoneUsuario(id, dto));
     }
 
     @DeleteMapping
