@@ -76,6 +76,30 @@ public class UsuarioService {
         return usuarioMapper.toDto(telefoneRepository.save(telefone));
     }
 
+    public EnderecoDto adicionarEnderecoUsuario(String token, EnderecoDto dto){
+        String email = jwtUtil.extractUsername(token.substring(7));
+
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Email não encontrado " + email));
+
+        Endereco endereco = usuarioMapper.paraEnderecoEntity(dto, usuario.getId());
+
+        return usuarioMapper.toDto(enderecoRepository.save(endereco));
+
+
+    }
+
+    public TelefoneDto adicionarTelefoneUsuario(String token, TelefoneDto dto){
+        String email = jwtUtil.extractUsername(token.substring(7));
+
+        Usuario usuario = usuarioRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("Email não encontrado " + email));
+
+        Telefone telefone = usuarioMapper.paraTelefoneEntity(dto, usuario.getId());
+
+        return usuarioMapper.toDto(telefoneRepository.save(telefone));
+    }
+
     public void deletarUsuario(String email){
         Usuario usuario = usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("Email não encontrado " + email));
